@@ -55,15 +55,15 @@ export default function DisplayPage() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <div>
           <h1 className="text-5xl font-bold text-white">J Satine Purchasers Q&A Session</h1>
-          <p className="text-lg text-gray-400 mt-2">Questions from the audience</p>
-          <div className="mt-3 flex flex-wrap items-center gap-4 text-md text-gray-400">
+          <p className="text-xl text-gray-400 mt-2">Questions from the audience</p>
+          <div className="mt-3 flex flex-wrap items-center gap-4 text-lg text-gray-400">
             <span>Last updated: {lastUpdated.toLocaleTimeString()}</span>
             <span>• {questions.length} question{questions.length !== 1 && "s"}</span>
             <span>• <span className="text-green-500">●</span> Online</span>
           </div>
         </div>
         <div className="mt-8 md:mt-0">
-          <div className="bg-gray-800 rounded-lg shadow p-5 text-center animate-fade-in">
+          <div className="bg-gray-800 rounded-lg shadow p-6 text-center animate-fade-in">
             <div className="w-[45vw] max-w-xl mx-auto">
               <QRCode
                 value="https://qn-asession.vercel.app/audience"
@@ -71,25 +71,25 @@ export default function DisplayPage() {
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
-            <p className="text-md mt-4 text-gray-200 font-medium">Scan to ask questions</p>
-            <p className="text-sm text-gray-400 mt-1">https://qn-asession.vercel.app/audience</p>
+            <p className="text-lg mt-4 text-gray-200 font-medium">Scan to ask questions</p>
+            <p className="text-md text-gray-400 mt-1">https://qn-asession.vercel.app/audience</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-8 space-y-6">
+      <div className="mt-10 space-y-6">
         {questions.length === 0 ? (
           <div className="text-center mt-20 text-gray-500">
             <div className="text-4xl mb-2">💬</div>
             <h2 className="text-2xl font-semibold text-gray-300">No questions yet</h2>
-            <p className="text-md text-gray-500">Waiting for audience questions…</p>
+            <p className="text-lg text-gray-500">Waiting for audience questions…</p>
           </div>
         ) : (
           questions.map((q) => (
             <div key={q.id} className="bg-gray-800 rounded-lg shadow p-6">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-xl font-semibold text-white">{q.title}</p>
+                  <p className="text-2xl font-semibold text-white">{q.title}</p>
                   <p className="text-md text-gray-400 mt-2">From: {q.asked_by || "Anonymous"}</p>
                 </div>
                 {isAdmin && (
