@@ -47,12 +47,12 @@ export default function DisplayPage() {
         <div className="mt-6 md:mt-0">
           <div className="bg-white rounded-lg shadow p-4 text-center">
             <div className="w-[40vw] max-w-sm mx-auto">
-  <QRCode
-    value="https://qn-asession-m8ft.vercel.app/audience"
-    size={600}
-    style={{ width: "100%", height: "auto" }}
-  />
-</div>
+              <QRCode
+                value="https://qn-asession-m8ft.vercel.app/audience"
+                size={600}
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
 
             <p className="text-sm mt-2 text-gray-700">Scan to ask questions</p>
             <p className="text-xs text-gray-500">Use your phone camera</p>
