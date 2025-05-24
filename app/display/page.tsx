@@ -74,7 +74,7 @@ export default function DisplayPage() {
         </div>
 
         {!showQuestions ? (
-          <p className="text-gray-400">Questions are currently hidden by admin.</p>
+          <p className="text-gray-400">Questions are loading... Please be patient</p>
         ) : (
           <div className="space-y-6">
             {questions.length === 0 ? (
