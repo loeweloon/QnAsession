@@ -32,11 +32,21 @@ export default function AdminPage() {
   }
 
   const updateVisibility = async (hide: boolean) => {
-    await supabase.from("questions").update({ hidden: hide }).in("id", selectedIds)
-    setQuestions((prev) =>
-      prev.map((q) => selectedIds.includes(q.id) ? { ...q, hidden: hide } : q)
-    )
-    setSelectedIds([]) // Clear selection
+    const { error } = await supabase
+      .from("questions")
+      .update({ hidden: hide })
+      .in("id", selectedIds)
+
+    if (error) {
+      console.error("Failed to update visibility:", error)
+    } else {
+      setQuestions((prev) =>
+        prev.map((q) =>
+          selectedIds.includes(q.id) ? { ...q, hidden: hide } : q
+        )
+      )
+      setSelectedIds([])
+    }
   }
 
   const filteredQuestions = questions.filter((q) =>
@@ -80,22 +90,20 @@ export default function AdminPage() {
             key={q.id}
             className="bg-gray-800 p-4 rounded shadow flex justify-between items-start"
           >
-            <div>
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={selectedIds.includes(q.id)}
-                  onChange={() => toggleSelect(q.id)}
-                />
-                <div>
-                  <p className="text-xl font-semibold">{q.title}</p>
-                  <p className="text-sm text-gray-400 mt-1">
-                    From: {q.asked_by || "Anonymous"}{" "}
-                    {q.hidden && <span className="text-yellow-400">(Hidden)</span>}
-                  </p>
-                </div>
-              </label>
-            </div>
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={selectedIds.includes(q.id)}
+                onChange={() => toggleSelect(q.id)}
+              />
+              <div>
+                <p className="text-xl font-semibold">{q.title}</p>
+                <p className="text-sm text-gray-400 mt-1">
+                  From: {q.asked_by || "Anonymous"}{" "}
+                  {q.hidden && <span className="text-yellow-400">(Hidden)</span>}
+                </p>
+              </div>
+            </label>
           </div>
         ))}
       </div>
