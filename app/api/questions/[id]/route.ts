@@ -12,3 +12,4 @@ export async function DELETE(_: Request, context: any) {
 
   return NextResponse.json({ success: true })
 }
+
