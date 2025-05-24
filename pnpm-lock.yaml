@@ -1,5 +1,17 @@
-lockfileVersion: '9.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
+lockfileVersion: '6.0'
+
+importers:
+  .:
+    specifiers:
+      '@supabase/supabase-js': ^2.42.3
+    dependencies:
+      '@supabase/supabase-js': 2.42.3
+
+packages:
+  /@supabase/supabase-js/2.42.3:
+    resolution: {integrity: sha512-randomstring}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      '@supabase/gotrue-js': '*'
+    dev: false
