@@ -26,8 +26,23 @@ export default function DisplayPage() {
   }
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    if (params.get("admin") === "1") setIsAdmin(true)
+    // Prompt only once if admin token is not set
+    const checkAdmin = () => {
+      const stored = localStorage.getItem("admin")
+      if (stored === "1") {
+        setIsAdmin(true)
+      } else {
+        const unlock = window.prompt("Enter admin pass (leave blank if not admin):")
+        if (unlock === "jsat") {
+          localStorage.setItem("admin", "1")
+          setIsAdmin(true)
+        } else {
+          localStorage.setItem("admin", "0")
+        }
+      }
+    }
+
+    checkAdmin()
     fetchQuestions()
     const interval = setInterval(fetchQuestions, 10000)
     return () => clearInterval(interval)
@@ -51,14 +66,14 @@ export default function DisplayPage() {
           </div>
         </div>
         <div className="mt-6 md:mt-0">
-          <div className="bg-gray-800 rounded-lg shadow p-4 text-center animate-fade-in">
+          <div className="bg-gray-800 rounded-lg shadow p-5 text-center animate-fade-in">
             <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://qn-asession-m8ft.vercel.app/audience"
+              src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://qn-asession-m8ft.vercel.app/audience"
               alt="QR Code"
               className="mx-auto"
             />
-            <p className="text-sm mt-2 text-gray-200">Scan to ask questions</p>
-            <p className="text-xs text-gray-500">Use your phone camera</p>
+            <p className="text-sm mt-3 text-gray-200">Scan to ask questions</p>
+            <p className="text-xs text-gray-500">https://qn-asession-m8ft.vercel.app/audience</p>
           </div>
         </div>
       </div>
