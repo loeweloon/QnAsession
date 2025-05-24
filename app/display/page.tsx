@@ -49,7 +49,7 @@ export default function DisplayPage() {
             <div className="w-[40vw] max-w-sm mx-auto">
               <QRCode
                 value="https://qn-asession-m8ft.vercel.app/audience"
-                size={600}
+                size={800}
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
