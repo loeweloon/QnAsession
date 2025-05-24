@@ -51,70 +51,55 @@ export default function DisplayPage() {
   }
 
   return (
-    <div className="min-h-screen px-6 py-8 bg-gray-900 text-gray-200">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <div>
-          <h1 className="text-5xl font-bold text-white">J Satine Purchasers Q&A Session</h1>
-          <p className="text-xl text-gray-400 mt-2">Questions from the audience</p>
-          <div className="mt-3 flex flex-wrap items-center gap-4 text-lg text-gray-400">
-            <span>Last updated: {lastUpdated.toLocaleTimeString()}</span>
-            <span>• {questions.length} question{questions.length !== 1 && "s"}</span>
-            <span>• <span className="text-green-500">●</span> Online</span>
-          </div>
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-900 text-gray-100">
+      {/* Left: 70% */}
+      <div className="w-full md:w-[70%] p-6">
+        <h1 className="text-5xl font-bold text-white">J Satine Q&A Session</h1>
+        <p className="text-xl text-gray-400 mt-2">Live audience questions</p>
+        <div className="text-md text-gray-500 mt-3 mb-6">
+          Last updated: {lastUpdated.toLocaleTimeString()} • {questions.length} question{questions.length !== 1 && "s"}
         </div>
-        <div className="mt-8 md:mt-0">
-          <div className="bg-gray-800 rounded-lg shadow p-6 text-center animate-fade-in">
-            <div className="w-[45vw] max-w-xl mx-auto">
-              <QRCode
-                value="https://qn-asession.vercel.app/audience"
-                size={800}
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-            <p className="text-lg mt-4 text-gray-200 font-medium">Scan to ask questions</p>
-            <p className="text-md text-gray-400 mt-1">https://qn-asession.vercel.app/audience</p>
-          </div>
-        </div>
-      </div>
 
-      <div className="mt-10 space-y-6">
-        {questions.length === 0 ? (
-          <div className="text-center mt-20 text-gray-500">
-            <div className="text-4xl mb-2">💬</div>
-            <h2 className="text-2xl font-semibold text-gray-300">No questions yet</h2>
-            <p className="text-lg text-gray-500">Waiting for audience questions…</p>
-          </div>
-        ) : (
-          questions.map((q) => (
-            <div key={q.id} className="bg-gray-800 rounded-lg shadow p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-2xl font-semibold text-white">{q.title}</p>
-                  <p className="text-md text-gray-400 mt-2">From: {q.asked_by || "Anonymous"}</p>
+        <div className="space-y-6">
+          {questions.length === 0 ? (
+            <div className="text-gray-400 text-lg">No questions yet. Waiting for submissions…</div>
+          ) : (
+            questions.map((q) => (
+              <div key={q.id} className="bg-gray-800 rounded-lg p-4 shadow">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-2xl font-semibold text-white">{q.title}</p>
+                    <p className="text-sm text-gray-400 mt-1">From: {q.asked_by || "Anonymous"}</p>
+                  </div>
+                  {isAdmin && (
+                    <button
+                      onClick={() => deleteQuestion(q.id)}
+                      className="text-red-400 hover:text-red-300 text-xs"
+                    >
+                      ✕ Delete
+                    </button>
+                  )}
                 </div>
-                {isAdmin && (
-                  <button
-                    className="text-red-400 hover:text-red-300 text-sm mt-1"
-                    onClick={() => deleteQuestion(q.id)}
-                  >
-                    ✕ Delete
-                  </button>
-                )}
               </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
       </div>
 
-      <style>{`
-        .animate-fade-in {
-          animation: fade-in 1s ease-in-out;
-        }
-        @keyframes fade-in {
-          from { opacity: 0; transform: scale(0.95); }
-          to { opacity: 1; transform: scale(1); }
-        }
-      `}</style>
+      {/* Right: 30% */}
+      <div className="w-full md:w-[30%] p-6 flex flex-col items-center justify-start">
+        <div className="bg-gray-800 p-6 rounded-xl shadow text-center w-full">
+          <div className="w-full">
+            <QRCode
+              value="https://qn-asession.vercel.app/audience"
+              size={800}
+              style={{ width: "100%", height: "auto" }}
+            />
+          </div>
+          <p className="text-lg mt-4 font-medium text-white">Scan to ask questions</p>
+          <p className="text-sm text-gray-400">https://qn-asession.vercel.app/audience</p>
+        </div>
+      </div>
     </div>
   )
 }
